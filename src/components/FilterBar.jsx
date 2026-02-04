@@ -1,9 +1,9 @@
 // front/src/components/FilterBar.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Home, MapPin, Tag, CircleDollarSign } from 'lucide-react';
+import { Home, MapPin, Tag, CircleDollarSign, Globe } from 'lucide-react';
 
-const FilterBar = ({ filters, setFilters, neighborhoods, types }) => {
+const FilterBar = ({ filters, setFilters, cities, neighborhoods, types }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters(prev => ({ ...prev, [name]: value }));
@@ -14,10 +14,10 @@ const FilterBar = ({ filters, setFilters, neighborhoods, types }) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      // Ajuste de margem e arredondamento responsivo
-      className="bg-white p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-blue-100/50 mb-8 sm:mb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 border border-gray-50"
+      // Grid ajustado para 5 colunas no desktop
+      className="bg-white p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-blue-100/50 mb-8 sm:mb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-4 border border-gray-50"
     >
-      {/* Filtro: Tipo de Imóvel */}
+      {/* Filtro: Tipo */}
       <div className="flex flex-col gap-1.5 sm:gap-2">
         <label className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 ml-1">
           <Home size={14} className="text-blue-500" />
@@ -28,7 +28,6 @@ const FilterBar = ({ filters, setFilters, neighborhoods, types }) => {
             name="type" 
             value={filters.type} 
             onChange={handleChange}
-            // text-base no mobile evita zoom automático do navegador
             className="w-full p-3.5 sm:p-3 bg-gray-50 border-none rounded-2xl text-gray-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer transition-all hover:bg-gray-100"
           >
             <option value="">Todos os tipos</option>
@@ -40,11 +39,33 @@ const FilterBar = ({ filters, setFilters, neighborhoods, types }) => {
         </div>
       </div>
 
-      {/* Filtro: Localização */}
+      {/* Filtro: Cidade */}
+      <div className="flex flex-col gap-1.5 sm:gap-2">
+        <label className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+          <Globe size={14} className="text-blue-500" />
+          Cidade
+        </label>
+        <div className="relative">
+          <select 
+            name="city" 
+            value={filters.city} 
+            onChange={handleChange}
+            className="w-full p-3.5 sm:p-3 bg-gray-50 border-none rounded-2xl text-gray-700 text-base sm:text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer transition-all hover:bg-gray-100"
+          >
+            <option value="">Todas as cidades</option>
+            {cities.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Filtro: Bairro */}
       <div className="flex flex-col gap-1.5 sm:gap-2">
         <label className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2 ml-1">
           <MapPin size={14} className="text-blue-500" />
-          Localização
+          Bairro
         </label>
         <div className="relative">
           <select 
