@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
 const Navbar = ({ onHomeClick }) => {
+  // Configuração do WhatsApp
+  const phoneNumber = "558881626907";
+  const message = "Olá! Gostaria de agendar uma consultoria imobiliária. Vi seu site e gostaria de conhecer os imóveis disponíveis.";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
   return (
     <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-xl z-[100] border-b border-gray-100/50 transition-all">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,14 +38,14 @@ const Navbar = ({ onHomeClick }) => {
             </div>
           </motion.div>
 
-          {/* Lado Direito: CTA - CORREÇÃO DE ESPAÇAMENTO */}
+          {/* Lado Direito: CTA com Mensagem Automática */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center"
           >
             <a 
-              href="https://wa.me/558881626907" 
+              href={whatsappUrl} 
               target="_blank" 
               rel="noopener noreferrer"
               className="group relative flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3.5 rounded-xl md:rounded-2xl text-[10px] sm:text-xs md:text-sm font-black transition-all shadow-lg shadow-green-100 hover:shadow-green-200 active:scale-95 whitespace-nowrap overflow-hidden"
@@ -53,7 +58,6 @@ const Navbar = ({ onHomeClick }) => {
 
               <MessageCircle size={16} className="group-hover:rotate-12 transition-transform shrink-0 md:w-5 md:h-5" />
               
-              {/* Ajustado: gap-1 fixo para mobile e gap-1.5 para desktop */}
               <div className="flex items-center gap-1 sm:gap-1.5">
                 <span className="inline">Agendar</span>
                 <span className="inline">Consultoria</span>
