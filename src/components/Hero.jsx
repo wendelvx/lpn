@@ -12,8 +12,9 @@ const Hero = () => {
   };
 
   return (
-    <header className="relative bg-white pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-32 lg:pb-32 overflow-hidden">
-      {/* Background Decor - Ajustado para não causar scroll horizontal no mobile */}
+    /* AJUSTE DE PADDING: pt-32 no mobile e pt-48 no desktop para livrar a Navbar alta */
+    <header className="relative bg-white pt-32 pb-12 sm:pt-40 sm:pb-16 lg:pt-48 lg:pb-32 overflow-hidden">
+      {/* Background Decor */}
       <div className="absolute top-0 right-0 w-full sm:w-1/3 h-full bg-blue-50/20 -z-10 skew-x-0 sm:skew-x-12 origin-top-right"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:items-center lg:gap-12 xl:gap-16">
@@ -21,36 +22,37 @@ const Hero = () => {
         {/* Coluna da Esquerda: Textos e Branding */}
         <div className="w-full lg:w-3/5 text-center lg:text-left z-10">
           
-          {/* SEÇÃO DE LOGOS: Empilhamento inteligente no mobile */}
+          {/* SEÇÃO DE LOGOS AMPLIADA */}
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 sm:gap-8 mb-8 sm:mb-10"
+            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8 sm:gap-12 mb-10 sm:mb-14"
           >
             {/* Logo Ítalo Mello */}
-            <div className="flex flex-col items-center lg:items-start gap-1.5 group">
-              <span className="text-[8px] sm:text-[9px] uppercase font-bold text-blue-600 tracking-[0.3em] opacity-70">
+            <div className="flex flex-col items-center lg:items-start gap-2 group">
+              <span className="text-[9px] sm:text-[10px] uppercase font-black text-blue-600 tracking-[0.3em] opacity-80">
                 Parceria Institucional
               </span>
               <img 
                 src={logomelo} 
                 alt="Ítalo Mello" 
-                className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-500" 
+                /* Logos aumentadas: h-14 no mobile até h-28 no desktop */
+                className="h-14 sm:h-20 md:h-24 lg:h-28 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-500" 
               />
             </div>
 
-            {/* Divisor: Oculto no mobile extremo, visível a partir de SM */}
-            <div className="hidden sm:block h-10 lg:h-12 w-[1px] bg-gray-200 mt-5"></div>
+            {/* Divisor: Mais alto para acompanhar as logos maiores */}
+            <div className="hidden sm:block h-16 lg:h-20 w-[1px] bg-gray-200 mt-6"></div>
 
             {/* Logo Natan */}
-            <div className="flex flex-col items-center lg:items-start gap-1.5 group">
-              <span className="text-[8px] sm:text-[9px] uppercase font-bold text-gray-400 tracking-[0.3em] opacity-60">
+            <div className="flex flex-col items-center lg:items-start gap-2 group">
+              <span className="text-[9px] sm:text-[10px] uppercase font-black text-gray-400 tracking-[0.3em] opacity-70">
                 Corretor Responsável
               </span>
               <img 
                 src={logonatan} 
                 alt="Natan Logo" 
-                className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-500" 
+                className="h-14 sm:h-20 md:h-24 lg:h-28 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-500" 
               />
             </div>
           </motion.div>
@@ -95,10 +97,8 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            {/* Moldura Decorativa - Ajustada para não vazar da tela */}
             <div className="absolute inset-0 border-2 border-blue-100 rounded-[2.5rem] sm:rounded-[3rem] rotate-3 sm:rotate-6"></div>
             
-            {/* Foto de Perfil Adaptável */}
             <div className="relative z-10 w-56 h-72 xs:w-64 xs:h-80 sm:w-72 sm:h-96 lg:w-80 lg:h-[480px] xl:w-[380px] xl:h-[520px] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 sm:border-8 border-white bg-gray-50">
               <img 
                 src={profileImg}
@@ -107,7 +107,6 @@ const Hero = () => {
               />
             </div>
 
-            {/* BADGE: Visível a partir de tablets (sm) para evitar poluição no celular */}
             <div className="absolute -bottom-4 -right-4 sm:bottom-10 sm:-right-6 bg-white p-3 sm:p-5 rounded-xl sm:rounded-2xl shadow-xl z-20 border border-gray-50 max-w-[140px] sm:max-w-none">
               <p className="text-[8px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5 sm:mb-1">
                 Especialista em
@@ -123,7 +122,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Glow de fundo - Opacidade reduzida no mobile */}
             <div className="absolute -bottom-6 -left-6 w-24 h-24 sm:w-32 sm:h-32 bg-blue-100 rounded-full blur-2xl sm:blur-3xl -z-10 opacity-30 sm:opacity-50"></div>
           </motion.div>
         </div>
