@@ -10,7 +10,7 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false); // Estado para o Modal
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const brokerPhone = "558888337051"; 
 
@@ -67,7 +67,6 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
       className="bg-white min-h-screen pb-12 sm:pb-20 pt-20 sm:pt-24"
     >
-      {/* MODAL DE IMAGEM EXPANDIDA */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div 
@@ -77,7 +76,6 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
             className="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 md:p-10"
             onClick={() => setIsExpanded(false)}
           >
-            {/* Botão Fechar */}
             <button 
               className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 p-3 rounded-full backdrop-blur-md transition-all z-[210]"
               onClick={() => setIsExpanded(false)}
@@ -85,23 +83,15 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
               <X size={28} />
             </button>
 
-            {/* Navegação Modal */}
             <div className="absolute inset-x-4 md:inset-x-10 flex justify-between items-center z-[210] pointer-events-none">
-              <button 
-                onClick={prevImage}
-                className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 pointer-events-auto transition-all"
-              >
+              <button onClick={prevImage} className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 pointer-events-auto transition-all">
                 <ChevronLeft size={32} />
               </button>
-              <button 
-                onClick={nextImage}
-                className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 pointer-events-auto transition-all"
-              >
+              <button onClick={nextImage} className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 pointer-events-auto transition-all">
                 <ChevronRight size={32} />
               </button>
             </div>
 
-            {/* Imagem Expandida */}
             <motion.img 
               key={currentIndex}
               src={currentMainImage}
@@ -109,7 +99,7 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
               animate={{ scale: 1, opacity: 1 }}
               className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
               alt="Expanded view"
-              onClick={(e) => e.stopPropagation()} // Impede fechar ao clicar na imagem
+              onClick={(e) => e.stopPropagation()}
             />
 
             <div className="mt-6 text-white/60 font-medium text-sm">
@@ -129,10 +119,8 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          
           <div className="lg:col-span-7">
             <div className="lg:sticky lg:top-28 space-y-4">
-              {/* CONTAINER DA IMAGEM PRINCIPAL (Clicável) */}
               <div 
                 onClick={() => setIsExpanded(true)}
                 className="group relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl bg-slate-900 aspect-video flex items-center justify-center cursor-zoom-in"
@@ -150,25 +138,17 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
                   />
                 </AnimatePresence>
 
-                {/* Overlay de Zoom (Dica visual) */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                    <div className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white border border-white/30">
                       <Maximize2 size={24} />
                    </div>
                 </div>
 
-                {/* Setas de Navegação (Somente para troca rápida, param propagação para não abrir modal) */}
                 <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <button 
-                    onClick={prevImage}
-                    className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto"
-                  >
+                  <button onClick={prevImage} className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto">
                     <ChevronLeft size={24} />
                   </button>
-                  <button 
-                    onClick={nextImage}
-                    className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto"
-                  >
+                  <button onClick={nextImage} className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto">
                     <ChevronRight size={24} />
                   </button>
                 </div>
@@ -195,7 +175,6 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
           </div>
 
           <div className="lg:col-span-5 flex flex-col">
-            {/* ... RESTANTE DOS TEXTOS E COMPONENTES MANTIDOS IGUAIS ... */}
             <div className="flex flex-wrap items-center gap-3 mb-4 sm:mb-6">
               <span className="bg-blue-100 text-blue-700 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest">
                 {property.contrato}
@@ -205,12 +184,15 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
             </div>
 
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-3 sm:mb-4 leading-tight">
-              {property.subtipo} <span className="text-blue-600">Exclusivo</span>
+              {property.subtipo} <span className="text-blue-600">Exclusiva</span>
             </h1>
             
-            <p className="text-gray-500 text-base sm:text-lg lg:text-xl flex items-center gap-2 mb-6 sm:mb-8 font-medium">
-              <MapPin size={20} className="text-blue-500 shrink-0" />
-              <span className="truncate">{property.endereco_bairro}, {property.endereco_cidade}</span>
+            {/* CORREÇÃO DO LOCALIZAÇÃO: Removido 'truncate' e adicionado 'whitespace-normal' */}
+            <p className="text-gray-500 text-base sm:text-lg lg:text-xl flex items-start gap-2 mb-6 sm:mb-8 font-medium">
+              <MapPin size={20} className="text-blue-500 shrink-0 mt-1" />
+              <span className="whitespace-normal leading-snug">
+                {property.endereco_bairro}, {property.endereco_cidade}
+              </span>
             </p>
 
             <div className="bg-blue-50 p-6 sm:p-8 rounded-2xl sm:rounded-3xl mb-8 sm:mb-10 border border-blue-100">
@@ -247,7 +229,7 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {property.imovel_comodidades?.split(',').map((item, i) => (
-                  <span key={i} className="bg-white border border-gray-100 text-gray-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-[11px] font-bold shadow-sm whitespace-nowrap">
+                  <span key={i} className="bg-white border border-gray-100 text-gray-600 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-[11px] font-bold shadow-sm whitespace-normal">
                     {item.trim()}
                   </span>
                 ))}
