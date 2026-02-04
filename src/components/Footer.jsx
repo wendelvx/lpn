@@ -1,7 +1,7 @@
 // front/src/components/Footer.jsx
 import React from 'react';
 import natanlogo from '../assets/natanlogo.png';
-import { MapPin, ExternalLink, ChevronRight } from 'lucide-react';
+import { MapPin, Instagram, ChevronRight } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,12 +12,11 @@ const Footer = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-gray-800 pb-12">
           
-          {/* Coluna 1: Branding - Logo Aumentada */}
+          {/* Coluna 1: Branding */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <img 
               src={natanlogo}
               alt="Natan Corretor" 
-              /* Aumento de escala: h-16 no mobile, h-20 em tablets e h-24 em desktops */
               className="h-16 sm:h-20 md:h-24 w-auto mb-6 object-contain brightness-0 invert opacity-90 transition-all" 
             />
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
@@ -25,7 +24,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Coluna 2: Navegação */}
+          {/* Coluna 2: Navegação e Redes Sociais */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold mb-6 text-lg tracking-tight uppercase text-blue-500 text-[10px] tracking-[0.3em]">
               Navegação
@@ -44,18 +43,24 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://italomello.com.br" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
-                  <ExternalLink size={14} className="text-blue-500 group-hover:scale-110 transition-transform" />
-                  Sobre a Ítalo Mello
+                {/* Link atualizado para o Instagram da Ítalo Mello */}
+                <a 
+                  href="https://www.instagram.com/italomellonegociosimobiliarios/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group"
+                >
+                  <Instagram size={14} className="text-blue-500 group-hover:scale-110 transition-transform" />
+                  Instagram Ítalo Mello
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Coluna 3: Localização e CRECI */}
+          {/* Coluna 3: Ajustada de "Contato Oficial" para "Registro e Localização" */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold mb-6 text-lg tracking-tight uppercase text-blue-500 text-[10px] tracking-[0.3em]">
-              Contato Oficial
+              Registro e Localização
             </h4>
             <div className="flex flex-col items-center md:items-start gap-3 text-gray-400 text-sm">
               <p className="flex items-center gap-2 hover:text-white transition-colors cursor-default">
