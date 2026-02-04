@@ -31,7 +31,7 @@ const Footer = ({ onNavigateToGrid }) => {
               className="h-16 sm:h-20 md:h-24 w-auto mb-6 object-contain brightness-0 invert opacity-90 transition-all" 
             />
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-              Especialista em realizar sonhos através de consultoria imobiliária personalizada e segura, em parceria com Ítalo Mello Negócios Imobiliários.
+             Sua ponte para investimentos seguros e moradias de alto padrão na região do Cariri.
             </p>
           </div>
 
