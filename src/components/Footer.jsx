@@ -68,7 +68,7 @@ const Footer = () => {
         {/* Direitos Autorais e Rodapé Final */}
         <div className="pt-8 text-center">
           <p className="text-gray-500 text-[10px] sm:text-xs tracking-wider uppercase">
-            © {currentYear} [Seu Nome]. Todos os direitos reservados.
+            © {currentYear} Natan de Sá Barreto Menezes. Todos os direitos reservados.
           </p>
           <p className="text-gray-600 text-[9px] mt-2">
             Desenvolvido com foco em excelência imobiliária.
