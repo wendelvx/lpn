@@ -1,5 +1,6 @@
 // front/src/components/Footer.jsx
 import React from 'react';
+import natanlogo from '../assets/natanlogo.png';
 import { MapPin, ExternalLink, ChevronRight } from 'lucide-react';
 
 const Footer = () => {
@@ -15,7 +16,7 @@ const Footer = () => {
           {/* Coluna 1: Branding e Descrição */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <img 
-              src="/logo-corretor-white.png" 
+              src={natanlogo}
               alt="Broker Logo White" 
               className="h-10 sm:h-12 w-auto mb-6 object-contain" 
             />
@@ -55,10 +56,10 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-start gap-3 text-gray-400 text-sm">
               <p className="flex items-center gap-2">
                 <MapPin size={16} className="text-blue-500 shrink-0" />
-                Sua Cidade - Estado
+                Juazeiro Do Norte - Ceará
               </p>
               <div className="mt-2 py-1 px-3 bg-gray-800 rounded-lg border border-gray-700">
-                <p className="font-semibold text-gray-300">CRECI: XXX.XXX</p>
+                <p className="font-semibold text-gray-300">CRECI: 243.87J</p>
               </div>
             </div>
           </div>
