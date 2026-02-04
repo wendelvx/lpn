@@ -1,6 +1,6 @@
 // front/src/components/Footer.jsx
 import React from 'react';
-import natanlogo from '../assets/natanlogo.png';
+import natanlogo from '../assets/natanwhitelogo.png';
 import { MapPin, ExternalLink, ChevronRight } from 'lucide-react';
 
 const Footer = () => {

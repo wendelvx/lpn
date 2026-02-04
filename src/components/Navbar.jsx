@@ -1,5 +1,6 @@
 // front/src/components/Navbar.jsx
 import React from 'react';
+import natanlogo from '../assets/natanlogo.png';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
@@ -18,7 +19,7 @@ const Navbar = () => {
           >
             {/* Logo escalável */}
             <img 
-              src="/logo-corretor.png" 
+              src={natanlogo}
               alt="Natan Corretor" 
               className="h-8 md:h-10 w-auto object-contain" 
             />
