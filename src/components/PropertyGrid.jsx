@@ -10,9 +10,8 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const PropertyGrid = ({ onSelectProperty }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 12; // Quantos cards aparecem por vez
 
-  // Estado atualizado com city e neighborhood separados
   const [filters, setFilters] = useState({
     type: '',
     city: '',
@@ -21,47 +20,58 @@ const PropertyGrid = ({ onSelectProperty }) => {
     maxPrice: ''
   });
 
+  // SOLUÇÃO: Buscamos 100 imóveis de uma vez para popular os filtros e permitir busca real
   const { data, error, isLoading } = useSWR(
-    `/api/properties?page=${currentPage}&pageSize=${itemsPerPage}`,
+    `/api/properties?page=1&pageSize=100`, 
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 60000 }
   );
 
-  const properties = data?.data || [];
-  const totalPages = data?.totalPages || 1;
+  const allProperties = data?.data || [];
 
-  // Lógica de filtragem com separação geográfica
+  // 1. Lógica de Filtragem: Filtrar sobre TODOS os 100 imóveis recebidos
   const filteredProperties = useMemo(() => {
-    if (!Array.isArray(properties)) return [];
-    return properties.filter(item => {
+    if (!Array.isArray(allProperties)) return [];
+    return allProperties.filter(item => {
       const matchType = !filters.type || item.subtipo === filters.type;
       const matchCity = !filters.city || item.endereco_cidade === filters.city;
       const matchNeighborhood = !filters.neighborhood || item.endereco_bairro === filters.neighborhood;
-      const matchPurpose = !filters.purpose || item.contrato.includes(filters.purpose);
+      const matchPurpose = !filters.purpose || (item.contrato && item.contrato.includes(filters.purpose));
       const matchPrice = !filters.maxPrice || (item.valor_venda <= parseFloat(filters.maxPrice));
       
       return matchType && matchCity && matchNeighborhood && matchPurpose && matchPrice;
     });
-  }, [properties, filters]);
+  }, [allProperties, filters]);
 
-  // Lista de Cidades únicas
+  // 2. Lógica de Paginação Local: Cortar a lista filtrada para exibir apenas 12
+  const propertiesToDisplay = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredProperties.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProperties, currentPage]);
+
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage) || 1;
+
+  // 3. Metadados para os Selects: Gerados a partir de TODOS os imóveis
   const cities = useMemo(() => 
-    [...new Set(properties.map(p => p.endereco_cidade))].filter(Boolean).sort()
-  , [properties]);
+    [...new Set(allProperties.map(p => p.endereco_cidade))].filter(Boolean).sort()
+  , [allProperties]);
 
-  // Lista de Bairros dinâmica: se houver cidade selecionada, filtra apenas os bairros dela
   const neighborhoods = useMemo(() => {
     const source = filters.city 
-      ? properties.filter(p => p.endereco_cidade === filters.city)
-      : properties;
+      ? allProperties.filter(p => p.endereco_cidade === filters.city)
+      : allProperties;
     return [...new Set(source.map(p => p.endereco_bairro))].filter(Boolean).sort();
-  }, [properties, filters.city]);
+  }, [allProperties, filters.city]);
 
   const types = useMemo(() => 
-    [...new Set(properties.map(p => p.subtipo))].filter(Boolean).sort()
-  , [properties]);
+    [...new Set(allProperties.map(p => p.subtipo))].filter(Boolean).sort()
+  , [allProperties]);
 
-  // Resetar bairro se mudar a cidade para evitar filtros impossíveis
+  // Resetar página e bairro ao mudar cidade ou outros filtros
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
   useEffect(() => {
     setFilters(prev => ({ ...prev, neighborhood: '' }));
   }, [filters.city]);
@@ -82,7 +92,7 @@ const PropertyGrid = ({ onSelectProperty }) => {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-            {filteredProperties.map(item => (
+            {propertiesToDisplay.map(item => (
               <PropertyCard 
                 key={item.id_imovel} 
                 property={item} 
@@ -98,7 +108,7 @@ const PropertyGrid = ({ onSelectProperty }) => {
               onPageChange={(page) => {
                 setCurrentPage(page);
                 const element = document.getElementById('property-grid');
-                const offset = element.offsetTop - 100;
+                const offset = (element?.offsetTop || 0) - 100;
                 window.scrollTo({ top: offset, behavior: 'smooth' });
               }}
             />
@@ -107,7 +117,7 @@ const PropertyGrid = ({ onSelectProperty }) => {
           {filteredProperties.length === 0 && (
             <div className="text-center py-16 sm:py-24 bg-gray-50 rounded-[2rem] sm:rounded-[3rem] mt-10 border border-dashed border-gray-200 px-6">
               <p className="text-gray-400 font-medium text-base sm:text-lg">
-                Nenhum imóvel encontrado nesta página.
+                Nenhum imóvel encontrado com esses filtros.
               </p>
             </div>
           )}

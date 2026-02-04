@@ -6,6 +6,7 @@ import { Home, MapPin, Tag, CircleDollarSign, Globe } from 'lucide-react';
 const FilterBar = ({ filters, setFilters, cities, neighborhoods, types }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Atualiza o estado global de filtros no PropertyGrid
     setFilters(prev => ({ ...prev, [name]: value }));
   };
 
@@ -14,7 +15,7 @@ const FilterBar = ({ filters, setFilters, cities, neighborhoods, types }) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      // Grid ajustado para 5 colunas no desktop
+      // Grid mantido em 5 colunas para o desktop
       className="bg-white p-5 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-blue-100/50 mb-8 sm:mb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-4 border border-gray-50"
     >
       {/* Filtro: Tipo */}
