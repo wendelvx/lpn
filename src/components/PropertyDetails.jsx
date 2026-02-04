@@ -12,7 +12,7 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const brokerPhone = "558888337051"; 
+  const brokerPhone = "558881626907"; 
 
   useEffect(() => {
     const fetchDetails = async () => {

@@ -9,10 +9,8 @@ const Footer = ({ onNavigateToGrid }) => {
   const handleVerImoveis = (e) => {
     e.preventDefault();
     if (onNavigateToGrid) {
-      // Chama a função que reseta o estado no App.jsx
       onNavigateToGrid();
     } else {
-      // Fallback caso já esteja na home
       const element = document.getElementById('property-grid');
       element?.scrollIntoView({ behavior: 'smooth' });
     }
@@ -31,7 +29,7 @@ const Footer = ({ onNavigateToGrid }) => {
               className="h-16 sm:h-20 md:h-24 w-auto mb-6 object-contain brightness-0 invert opacity-90 transition-all" 
             />
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-             Sua ponte para investimentos seguros e moradias de alto padrão na região do Cariri.
+              Sua ponte para investimentos seguros e moradias de alto padrão na região do Cariri.
             </p>
           </div>
 
@@ -40,34 +38,33 @@ const Footer = ({ onNavigateToGrid }) => {
             <h4 className="font-bold mb-6 text-lg tracking-tight uppercase text-blue-500 text-[10px] tracking-[0.3em]">
               Navegação
             </h4>
-            <ul className="text-gray-400 space-y-4 text-sm font-medium">
-              <li>
+            {/* Adicionado items-center para mobile e items-start para desktop */}
+            <ul className="w-full flex flex-col items-center md:items-start space-y-4 text-sm font-medium">
+              <li className="w-full">
                 <a href="/" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
                   <ChevronRight size={14} className="text-blue-500" />
                   Início
                 </a>
               </li>
-              <li>
-                {/* Botão que reseta o estado de visualização */}
+              <li className="w-full">
+                {/* Botão Ver Imóveis com justify-center no mobile */}
                 <button 
                   onClick={handleVerImoveis}
-                  className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group"
+                  className="w-full hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group"
                 >
                   <ChevronRight size={14} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
                   Ver Imóveis
                 </button>
               </li>
               
-              {/* Instagram Natan */}
-              <li>
+              <li className="w-full">
                 <a href="https://www.instagram.com/natan.s.barreto.m/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
                   <Instagram size={14} className="text-blue-500" />
                   Instagram Natan Barreto
                 </a>
               </li>
 
-              {/* Instagram Ítalo */}
-              <li>
+              <li className="w-full">
                 <a href="https://www.instagram.com/italomellonegociosimobiliarios/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
                   <Instagram size={14} className="text-blue-500" />
                   Instagram Ítalo Mello
@@ -81,12 +78,13 @@ const Footer = ({ onNavigateToGrid }) => {
             <h4 className="font-bold mb-6 text-lg tracking-tight uppercase text-blue-500 text-[10px] tracking-[0.3em]">
               Registro e Localização
             </h4>
-            <div className="flex flex-col items-center md:items-start gap-3 text-gray-400 text-sm">
-              <p className="flex items-center gap-2 hover:text-white transition-colors cursor-default">
+            <div className="flex flex-col items-center md:items-start gap-3 text-gray-400 text-sm w-full">
+              <p className="flex items-center gap-2 justify-center md:justify-start hover:text-white transition-colors cursor-default">
                 <MapPin size={18} className="text-blue-500 shrink-0" />
                 Juazeiro Do Norte - Ceará
               </p>
-              <div className="mt-2 py-2.5 px-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md shadow-inner">
+              {/* Badge centralizado no mobile */}
+              <div className="mt-2 py-2.5 px-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md shadow-inner inline-block md:block">
                 <p className="font-black text-gray-200 tracking-[0.2em] text-xs">CRECI: 243.87J</p>
               </div>
             </div>
