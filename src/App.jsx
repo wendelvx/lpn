@@ -1,26 +1,72 @@
 // front/src/App.jsx
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import PropertyGrid from './components/PropertyGrid';
+import PropertyDetails from './components/PropertyDetails';
+import Footer from './components/Footer';
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Hero />
-      
-      <main id="property-grid" className="py-20">
-        <div className="container mx-auto px-4 mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 border-l-4 border-blue-600 pl-4">
-            Imóveis em Destaque
-          </h2>
-        </div>
-        
-        <PropertyGrid />
-      </main>
+  // Estado que controla se estamos vendo a lista ou um imóvel específico
+  const [selectedPropertyCode, setSelectedPropertyCode] = useState(null);
 
-      {/* Footer simples para finalizar a Landing Page */}
-      <footer className="bg-gray-900 text-white py-12 text-center">
-        <p>© 2026 [Seu Nome] - Em parceria com Ítalo Mello Negócios Imobiliários</p>
-      </footer>
+  // Função para lidar com a seleção e subir o scroll suavemente
+  const handleSelectProperty = (code) => {
+    setSelectedPropertyCode(code);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBack = () => {
+    setSelectedPropertyCode(null);
+    // Pequeno delay para garantir que o elemento exista antes de scrollar
+    setTimeout(() => {
+      const element = document.getElementById('property-grid');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Navbar />
+
+      {/* AnimatePresence permite animações ao montar/desmontar componentes */}
+      <AnimatePresence mode="wait">
+        {!selectedPropertyCode ? (
+          <motion.div
+            key="landing"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex-grow"
+          >
+            <Hero />
+            {/* py-12 no mobile e py-20 no desktop para respiro ideal */}
+            <main id="property-grid" className="py-12 sm:py-16 md:py-20">
+              <PropertyGrid onSelectProperty={handleSelectProperty} />
+            </main>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="details"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="flex-grow pt-16 sm:pt-20"
+          >
+            <PropertyDetails 
+              propertyCode={selectedPropertyCode} 
+              onBack={handleBack} 
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Footer />
     </div>
   );
 }
