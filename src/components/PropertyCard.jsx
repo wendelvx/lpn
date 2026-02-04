@@ -17,24 +17,29 @@ const PropertyCard = ({ property, onSelect }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
       onClick={() => onSelect(property.codigo)}
-      // Escala sutil apenas em dispositivos com mouse (hover:scale)
       className="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 sm:hover:scale-[1.02] sm:hover:shadow-2xl cursor-pointer group border border-gray-100 flex flex-col h-full"
     >
-      {/* Container da Imagem com Altura Responsiva */}
-      <div className="relative h-52 sm:h-64 overflow-hidden shrink-0">
+      {/* Container da Imagem: Altura responsiva e fundo neutro para carregamento */}
+      <div className="relative h-52 sm:h-64 overflow-hidden shrink-0 bg-gray-100">
         <img 
-          src={property.imagens?.[0]?.link_thumb || 'placeholder.jpg'} 
+          /* AJUSTE DE RESOLUÇÃO: 
+             Alterado de 'link_thumb' para 'link' para carregar a imagem em alta qualidade.
+          */
+          src={property.imagens?.[0]?.link || 'placeholder.jpg'} 
           alt={property.subtipo}
-          className="w-full h-full object-cover transition-transform duration-700 sm:group-hover:scale-110"
+          /* AJUSTE DE ENQUADRAMENTO:
+             'object-cover' preenche o espaço, 'object-center' garante o foco no meio.
+          */
+          className="w-full h-full object-cover object-center transition-transform duration-700 sm:group-hover:scale-105"
           loading="lazy"
         />
         
-        {/* Badge de Contrato - Backdrop blur para legibilidade sobre qualquer imagem */}
+        {/* Badge de Contrato (Venda/Locação) */}
         <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-blue-600/90 backdrop-blur-sm text-white px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-lg uppercase tracking-wider">
           {property.contrato}
         </div>
 
-        {/* Overlay sutil para telas touch e hover */}
+        {/* Overlay gradiente (Sutil no Mobile, visível no Hover Desktop) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 sm:group-hover:opacity-100 transition-opacity" />
       </div>
 
@@ -54,24 +59,24 @@ const PropertyCard = ({ property, onSelect }) => {
           <span className="text-gray-300">📍</span> {property.endereco_cidade}
         </p>
 
-        {/* Grid de Atributos: Padding lateral adaptável */}
+        {/* Grid de Atributos com Ícones */}
         <div className="flex justify-between items-center border-t border-b border-gray-50 py-3 sm:py-4 my-auto text-gray-600">
           <div className="flex flex-col items-center gap-1 flex-1">
             <Bed size={16} className="text-blue-500 sm:w-[18px]" />
             <span className="font-bold text-gray-800 text-xs sm:text-sm">{property.dormitorios || 0}</span>
-            <span className="text-[8px] sm:text-[9px] uppercase font-medium text-gray-400 tracking-tighter sm:tracking-normal">Quartos</span>
+            <span className="text-[8px] sm:text-[9px] uppercase font-medium text-gray-400">Quartos</span>
           </div>
           
           <div className="flex flex-col items-center gap-1 border-x border-gray-100 flex-1 px-2">
             <Bath size={16} className="text-blue-500 sm:w-[18px]" />
             <span className="font-bold text-gray-800 text-xs sm:text-sm">{property.banheiros || 0}</span>
-            <span className="text-[8px] sm:text-[9px] uppercase font-medium text-gray-400 tracking-tighter sm:tracking-normal">Banh.</span>
+            <span className="text-[8px] sm:text-[9px] uppercase font-medium text-gray-400">Banh.</span>
           </div>
           
           <div className="flex flex-col items-center gap-1 flex-1">
             <Car size={16} className="text-blue-500 sm:w-[18px]" />
             <span className="font-bold text-gray-800 text-xs sm:text-sm">{property.garagens || 0}</span>
-            <span className="text-[8px] sm:text-[9px] uppercase font-medium text-gray-400 tracking-tighter sm:tracking-normal">Vagas</span>
+            <span className="text-[8px] sm:text-[9px] uppercase font-medium text-gray-400">Vagas</span>
           </div>
         </div>
 
