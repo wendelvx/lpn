@@ -3,13 +3,24 @@ import React from 'react';
 import natanlogo from '../assets/natanlogo.png';
 import { MapPin, Instagram, ChevronRight } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ onNavigateToGrid }) => {
   const currentYear = new Date().getFullYear();
+
+  const handleVerImoveis = (e) => {
+    e.preventDefault();
+    if (onNavigateToGrid) {
+      // Chama a função que reseta o estado no App.jsx
+      onNavigateToGrid();
+    } else {
+      // Fallback caso já esteja na home
+      const element = document.getElementById('property-grid');
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-gray-800 pb-12">
           
           {/* Coluna 1: Branding */}
@@ -31,33 +42,41 @@ const Footer = () => {
             </h4>
             <ul className="text-gray-400 space-y-4 text-sm font-medium">
               <li>
-                <a href="#" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
-                  <ChevronRight size={14} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
+                <a href="/" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
+                  <ChevronRight size={14} className="text-blue-500" />
                   Início
                 </a>
               </li>
               <li>
-                <a href="#property-grid" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
-                  <ChevronRight size={14} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
-                  Ver Imóveis
-                </a>
-              </li>
-              <li>
-                {/* Link atualizado para o Instagram da Ítalo Mello */}
-                <a 
-                  href="https://www.instagram.com/italomellonegociosimobiliarios/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                {/* Botão que reseta o estado de visualização */}
+                <button 
+                  onClick={handleVerImoveis}
                   className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group"
                 >
-                  <Instagram size={14} className="text-blue-500 group-hover:scale-110 transition-transform" />
+                  <ChevronRight size={14} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
+                  Ver Imóveis
+                </button>
+              </li>
+              
+              {/* Instagram Natan */}
+              <li>
+                <a href="https://www.instagram.com/natan.s.barreto.m/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
+                  <Instagram size={14} className="text-blue-500" />
+                  Instagram Natan Barreto
+                </a>
+              </li>
+
+              {/* Instagram Ítalo */}
+              <li>
+                <a href="https://www.instagram.com/italomellonegociosimobiliarios/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-2 justify-center md:justify-start group">
+                  <Instagram size={14} className="text-blue-500" />
                   Instagram Ítalo Mello
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Coluna 3: Ajustada de "Contato Oficial" para "Registro e Localização" */}
+          {/* Coluna 3: Registro e Localização */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold mb-6 text-lg tracking-tight uppercase text-blue-500 text-[10px] tracking-[0.3em]">
               Registro e Localização
@@ -79,13 +98,6 @@ const Footer = () => {
           <p className="text-gray-500 text-[10px] sm:text-xs tracking-widest uppercase font-medium">
             © {currentYear} Natan de Sá Barreto Menezes.
           </p>
-          <div className="flex items-center justify-center gap-2 mt-3 opacity-40">
-            <div className="h-[1px] w-8 bg-gray-700"></div>
-            <p className="text-gray-600 text-[9px] italic uppercase tracking-tighter">
-              Excelência técnica em consultoria imobiliária
-            </p>
-            <div className="h-[1px] w-8 bg-gray-700"></div>
-          </div>
         </div>
       </div>
     </footer>

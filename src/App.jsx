@@ -17,22 +17,32 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Função para voltar à listagem (Home)
   const handleBack = () => {
+    if (selectedPropertyCode === null) {
+       // Se já estiver na home, apenas rola para o grid
+       const element = document.getElementById('property-grid');
+       element?.scrollIntoView({ behavior: 'smooth' });
+       return;
+    }
+
     setSelectedPropertyCode(null);
-    // Pequeno delay para garantir que o elemento exista antes de scrollar
+    // Pequeno delay para garantir que o componente PropertyGrid seja montado antes de scrollar
     setTimeout(() => {
       const element = document.getElementById('property-grid');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        // Compensação para a Navbar fixa
+        const offset = element.offsetTop - 120;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
       }
     }, 100);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Navbar />
+      {/* Navbar com função para voltar ao início ao clicar na logo (opcional no componente) */}
+      <Navbar onHomeClick={() => setSelectedPropertyCode(null)} />
 
-      {/* AnimatePresence permite animações ao montar/desmontar componentes */}
       <AnimatePresence mode="wait">
         {!selectedPropertyCode ? (
           <motion.div
@@ -56,7 +66,8 @@ function App() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex-grow pt-16 sm:pt-20"
+            /* AJUSTE DE PADDING: pt-24 md:pt-28 para não cobrir o conteúdo com a Navbar alta */
+            className="flex-grow pt-24 sm:pt-28 md:pt-32"
           >
             <PropertyDetails 
               propertyCode={selectedPropertyCode} 
@@ -66,7 +77,8 @@ function App() {
         )}
       </AnimatePresence>
 
-      <Footer />
+      {/* FOOTER: Agora recebe a função de navegação para o link "Ver Imóveis" */}
+      <Footer onNavigateToGrid={handleBack} />
     </div>
   );
 }
