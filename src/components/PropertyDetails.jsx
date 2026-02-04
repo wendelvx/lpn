@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, MessageCircle, MapPin, CheckCircle2, 
-  Calendar, Bed, Bath, Maximize, Car, ChevronLeft, ChevronRight 
+  Calendar, Bed, Bath, Car, ChevronLeft, ChevronRight, X, Maximize2
 } from 'lucide-react';
 
 const PropertyDetails = ({ propertyCode, onBack }) => {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false); // Estado para o Modal
 
   const brokerPhone = "558888337051"; 
 
@@ -21,7 +22,6 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
         
         if (result.data) {
           setProperty(result.data);
-          // Pre-carregamento das imagens em alta resolução
           result.data.imagens?.forEach((img) => {
             const prefetch = new Image();
             prefetch.src = img.link;
@@ -37,15 +37,14 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
     window.scrollTo(0, 0);
   }, [propertyCode]);
 
-  // Funções de navegação da galeria
   const nextImage = (e) => {
-    e.stopPropagation();
+    e?.stopPropagation();
     if (!property?.imagens) return;
     setCurrentIndex((prev) => (prev + 1) % property.imagens.length);
   };
 
   const prevImage = (e) => {
-    e.stopPropagation();
+    e?.stopPropagation();
     if (!property?.imagens) return;
     setCurrentIndex((prev) => (prev - 1 + property.imagens.length) % property.imagens.length);
   };
@@ -68,6 +67,58 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
       className="bg-white min-h-screen pb-12 sm:pb-20 pt-20 sm:pt-24"
     >
+      {/* MODAL DE IMAGEM EXPANDIDA */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center p-4 md:p-10"
+            onClick={() => setIsExpanded(false)}
+          >
+            {/* Botão Fechar */}
+            <button 
+              className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 p-3 rounded-full backdrop-blur-md transition-all z-[210]"
+              onClick={() => setIsExpanded(false)}
+            >
+              <X size={28} />
+            </button>
+
+            {/* Navegação Modal */}
+            <div className="absolute inset-x-4 md:inset-x-10 flex justify-between items-center z-[210] pointer-events-none">
+              <button 
+                onClick={prevImage}
+                className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 pointer-events-auto transition-all"
+              >
+                <ChevronLeft size={32} />
+              </button>
+              <button 
+                onClick={nextImage}
+                className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 pointer-events-auto transition-all"
+              >
+                <ChevronRight size={32} />
+              </button>
+            </div>
+
+            {/* Imagem Expandida */}
+            <motion.img 
+              key={currentIndex}
+              src={currentMainImage}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+              alt="Expanded view"
+              onClick={(e) => e.stopPropagation()} // Impede fechar ao clicar na imagem
+            />
+
+            <div className="mt-6 text-white/60 font-medium text-sm">
+              {currentIndex + 1} / {property.imagens?.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <button 
           onClick={onBack} 
@@ -79,48 +130,54 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
-          {/* Galeria de Fotos Otimizada com Setas */}
           <div className="lg:col-span-7">
             <div className="lg:sticky lg:top-28 space-y-4">
-              <div className="group relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl bg-slate-900 aspect-video flex items-center justify-center">
-                
+              {/* CONTAINER DA IMAGEM PRINCIPAL (Clicável) */}
+              <div 
+                onClick={() => setIsExpanded(true)}
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl bg-slate-900 aspect-video flex items-center justify-center cursor-zoom-in"
+              >
                 <AnimatePresence mode='wait'>
                   <motion.img 
                     key={currentIndex}
                     src={currentMainImage} 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.05 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    // 'object-contain' garante que a foto apareça inteira
                     className="w-full h-full object-contain" 
                     alt="Property Detail" 
                   />
                 </AnimatePresence>
 
-                {/* Setas de Navegação (Aparecem no Hover ou sempre no Mobile) */}
+                {/* Overlay de Zoom (Dica visual) */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                   <div className="bg-white/20 backdrop-blur-md p-3 rounded-full text-white border border-white/30">
+                      <Maximize2 size={24} />
+                   </div>
+                </div>
+
+                {/* Setas de Navegação (Somente para troca rápida, param propagação para não abrir modal) */}
                 <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                   <button 
                     onClick={prevImage}
-                    className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto active:scale-90"
+                    className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button 
                     onClick={nextImage}
-                    className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto active:scale-90"
+                    className="p-2 sm:p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all pointer-events-auto"
                   >
                     <ChevronRight size={24} />
                   </button>
                 </div>
 
-                {/* Contador de Fotos */}
                 <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-bold">
                   {currentIndex + 1} / {property.imagens?.length}
                 </div>
               </div>
               
-              {/* Miniaturas */}
               <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 sm:pb-4 scrollbar-hide snap-x">
                 {property.imagens?.map((img, idx) => (
                   <button 
@@ -137,8 +194,8 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
             </div>
           </div>
 
-          {/* Informações Detalhadas (Textos Mantidos) */}
           <div className="lg:col-span-5 flex flex-col">
+            {/* ... RESTANTE DOS TEXTOS E COMPONENTES MANTIDOS IGUAIS ... */}
             <div className="flex flex-wrap items-center gap-3 mb-4 sm:mb-6">
               <span className="bg-blue-100 text-blue-700 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest">
                 {property.contrato}
