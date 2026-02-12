@@ -1,46 +1,43 @@
-// front/src/App.jsx
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import ExecutiveBio from './components/ExecutiveBio'; // NOVO: Autoridade
+import BrokerGrid from './components/BrokerGrid';     // NOVO: Ecossistema
 import PropertyGrid from './components/PropertyGrid';
 import PropertyDetails from './components/PropertyDetails';
 import Footer from './components/Footer';
 
 function App() {
-  // Estado que controla se estamos vendo a lista ou um imóvel específico
   const [selectedPropertyCode, setSelectedPropertyCode] = useState(null);
 
-  // Função para lidar com a seleção e subir o scroll suavemente
   const handleSelectProperty = (code) => {
     setSelectedPropertyCode(code);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Função para voltar à listagem (Home)
   const handleBack = () => {
     if (selectedPropertyCode === null) {
-       // Se já estiver na home, apenas rola para o grid
-       const element = document.getElementById('property-grid');
-       element?.scrollIntoView({ behavior: 'smooth' });
-       return;
+      const element = document.getElementById('catalog');
+      element?.scrollIntoView({ behavior: 'smooth' });
+      return;
     }
-
     setSelectedPropertyCode(null);
-    // Pequeno delay para garantir que o componente PropertyGrid seja montado antes de scrollar
+    
     setTimeout(() => {
-      const element = document.getElementById('property-grid');
+      const element = document.getElementById('catalog');
       if (element) {
-        // Compensação para a Navbar fixa
-        const offset = element.offsetTop - 120;
+        const offset = element.offsetTop - 100;
         window.scrollTo({ top: offset, behavior: 'smooth' });
       }
     }, 100);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Navbar com função para voltar ao início ao clicar na logo (opcional no componente) */}
+    <div className="min-h-screen bg-[#0f172a] flex flex-col font-sans selection:bg-gold-500 selection:text-white">
+      {/* Background sutil para o tom Executive Dark */}
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black -z-50" />
+
       <Navbar onHomeClick={() => setSelectedPropertyCode(null)} />
 
       <AnimatePresence mode="wait">
@@ -50,24 +47,46 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex-grow"
           >
+            {/* 1. Impacto Inicial */}
             <Hero />
-            {/* py-12 no mobile e py-20 no desktop para respiro ideal */}
-            <main id="property-grid" className="py-12 sm:py-16 md:py-20">
-              <PropertyGrid onSelectProperty={handleSelectProperty} />
+
+            {/* 2. Prova Social e Autoridade (The Owner) */}
+            <section className="py-16 bg-white">
+              <ExecutiveBio />
+            </section>
+
+            {/* 3. Catálogo Premium (Antigo PropertyGrid) */}
+            <main id="catalog" className="py-20 px-4">
+               <div className="container mx-auto">
+                  <header className="mb-12 text-center lg:text-left">
+                    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
+                      Curadoria <span className="text-blue-500">Exclusiva</span>
+                    </h2>
+                    <p className="text-slate-400 max-w-2xl font-medium">
+                      Imóveis selecionados sob rigorosos critérios de liquidez e alto padrão.
+                    </p>
+                  </header>
+                  <PropertyGrid onSelectProperty={handleSelectProperty} />
+               </div>
             </main>
+
+            {/* 4. Ecossistema (O Time) */}
+            <section className="py-20 bg-slate-50">
+              <BrokerGrid />
+            </section>
+
           </motion.div>
         ) : (
           <motion.div
             key="details"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            /* AJUSTE DE PADDING: pt-24 md:pt-28 para não cobrir o conteúdo com a Navbar alta */
-            className="flex-grow pt-24 sm:pt-28 md:pt-32"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.4 }}
+            className="flex-grow pt-24"
           >
             <PropertyDetails 
               propertyCode={selectedPropertyCode} 
@@ -77,7 +96,6 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* FOOTER: Agora recebe a função de navegação para o link "Ver Imóveis" */}
       <Footer onNavigateToGrid={handleBack} />
     </div>
   );

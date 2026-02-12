@@ -1,44 +1,84 @@
-// front/src/components/Navbar.jsx
 import React from 'react';
-import natanlogo from '../assets/natanlogo.png';
 import { motion } from 'framer-motion';
-import { MessageCircle } from 'lucide-react';
+import { MessageCircle, ShieldCheck } from 'lucide-react';
+import logomelo from '../assets/logomelo.png';
 
 const Navbar = ({ onHomeClick }) => {
-  // Configuração do WhatsApp
-  const phoneNumber = "558881626907";
-  const message = "Olá! Gostaria de agendar uma consultoria imobiliária. Vi seu site e gostaria de conhecer os imóveis disponíveis.";
+  const phoneNumber = "558897699917";
+  const message = "Olá! Solicito uma consultoria imobiliária exclusiva com a Ítalo Mello Negócios.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
+  const handleNavigate = (sectionId) => {
+    onHomeClick(); // Reseta estado de detalhes no App.jsx
+    
+    setTimeout(() => {
+      if (sectionId === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offset = element.offsetTop - 90;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+      }
+    }, 100);
+  };
+
+  const navLinks = [
+    { name: 'Início', id: 'top' },
+    { name: 'Venda', id: 'catalog' },
+    { name: 'Locação', id: 'catalog' },
+    { name: 'Sobre', id: 'about' },
+  ];
+
   return (
-    <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-xl z-[100] border-b border-gray-100/50 transition-all">
+    <nav className="fixed top-0 w-full z-[100] bg-white/95 backdrop-blur-xl py-4 shadow-lg shadow-slate-200/50 transition-all border-b border-slate-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24 md:h-28">
+        <div className="flex items-center justify-between">
           
-          {/* Lado Esquerdo: Logo */}
+          {/* 🏷️ Lado Esquerdo: Branding Ítalo Mello (Logo sempre preta) */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 md:gap-5 shrink-0 cursor-pointer"
-            onClick={onHomeClick}
+            className="flex items-center gap-4 cursor-pointer group"
+            onClick={() => handleNavigate('top')}
           >
-            <img 
-              src={natanlogo}
-              alt="Natan Corretor" 
-              className="h-12 xs:h-14 md:h-20 w-auto object-contain" 
-            />
+            <div className="relative">
+              {/* brightness-0 aplicado permanentemente para tornar o texto branco em preto */}
+              <img 
+                src={logomelo}
+                alt="Ítalo Mello Negócios Imobiliários" 
+                className="h-10 sm:h-14 md:h-16 w-auto object-contain brightness-0 opacity-90 transition-transform duration-500 group-hover:scale-105" 
+              />
+              <div className="absolute -bottom-1 -right-1 bg-blue-600 text-white p-1 rounded-full border-2 border-white shadow-lg">
+                <ShieldCheck size={10} />
+              </div>
+            </div>
             
-            <div className="hidden lg:flex flex-col justify-center border-l border-gray-200 pl-4 h-12">
-              <span className="text-[10px] md:text-xs font-black text-blue-600 uppercase tracking-[0.2em] leading-none mb-1">
-                Estrategista
+            <div className="hidden xl:flex flex-col justify-center border-l border-slate-200 pl-5">
+              <span className="text-[10px] font-black text-slate-900 uppercase tracking-[0.3em] leading-none mb-1.5">
+                Diretoria Executiva
               </span>
-              <span className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-tighter lg:tracking-widest whitespace-nowrap leading-none">
-                Consultoria Imobiliária
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-none">
+                Ítalo Mello
               </span>
             </div>
           </motion.div>
 
-          {/* Lado Direito: CTA com Mensagem Automática */}
+          {/* 🧭 Navegação Central */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <button 
+                key={link.name}
+                onClick={() => handleNavigate(link.id)}
+                className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 hover:text-blue-600 transition-colors"
+              >
+                {link.name}
+              </button>
+            ))}
+          </div>
+
+          {/* 💎 Lado Direito: CTA "Private" (Sempre modo Executive Dark) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -48,22 +88,18 @@ const Navbar = ({ onHomeClick }) => {
               href={whatsappUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group relative flex items-center gap-1.5 md:gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-3 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3.5 rounded-xl md:rounded-2xl text-[10px] sm:text-xs md:text-sm font-black transition-all shadow-lg shadow-green-100 hover:shadow-green-200 active:scale-95 whitespace-nowrap overflow-hidden"
+              className="group relative flex items-center gap-3 bg-slate-900 hover:bg-blue-700 text-white px-6 py-3.5 md:px-8 md:py-4 rounded-2xl text-[10px] md:text-xs font-black transition-all active:scale-95 overflow-hidden shadow-xl shadow-slate-200"
             >
               <motion.div 
                 animate={{ x: ['-100%', '200%'] }}
-                transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
               />
-
-              <MessageCircle size={16} className="group-hover:rotate-12 transition-transform shrink-0 md:w-5 md:h-5" />
-              
-              <div className="flex items-center gap-1 sm:gap-1.5">
-                <span className="inline">Agendar</span>
-                <span className="inline">Consultoria</span>
-              </div>
+              <MessageCircle size={18} className="group-hover:rotate-12 transition-transform shrink-0" />
+              <span className="uppercase tracking-[0.2em]">Consultoria Privada</span>
             </a>
           </motion.div>
+
         </div>
       </div>
     </nav>

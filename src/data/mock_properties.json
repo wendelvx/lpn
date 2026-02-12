@@ -1,0 +1,248 @@
+{
+  "data": [
+    {
+      "id_imovel": 1,
+      "codigo": "IM-001",
+      "tipo": "Residencial",
+      "subtipo": "Mansão Suspensa",
+      "contrato": "Venda",
+      "endereco_bairro": "Lagoa Seca",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 4,
+      "banheiros": 6,
+      "garagens": 4,
+      "valor_venda": 2850000,
+      "valor_venda_visivel": true,
+      "exclusivo": true,
+      "imovel_comodidades": "Piscina Privativa, Automação Residencial, Piso em Mármore, Varanda Gourmet, Adega Climatizada",
+      "observacoes": "Uma obra-prima da arquitetura moderna no coração da Lagoa Seca. Esta mansão suspensa oferece vista 360º para a cidade, acabamentos em quartzito e um sistema de segurança de última geração.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 2,
+      "codigo": "IM-002",
+      "tipo": "Residencial",
+      "subtipo": "Casa em Condomínio",
+      "contrato": "Venda",
+      "endereco_bairro": "Cidade Universitária",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 3,
+      "banheiros": 4,
+      "garagens": 3,
+      "valor_venda": 1450000,
+      "valor_venda_visivel": true,
+      "exclusivo": false,
+      "imovel_comodidades": "Energia Solar, Área Gourmet, Pé Direito Duplo, Paisagismo assinado",
+      "observacoes": "Design contemporâneo focado em sustentabilidade e integração. Localizada no condomínio mais seguro da região, esta residência combina elegância com funcionalidade tecnológica.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 3,
+      "codigo": "IM-003",
+      "tipo": "Comercial",
+      "subtipo": "Cobertura Corporate",
+      "contrato": "Locação",
+      "endereco_bairro": "Triângulo",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 0,
+      "banheiros": 2,
+      "garagens": 2,
+      "valor_venda": 8500,
+      "valor_locacao": 8500,
+      "valor_venda_visivel": true,
+      "exclusivo": true,
+      "imovel_comodidades": "Ar-condicionado Central, Divisórias em Vidro, Copa, Vista Panorâmica",
+      "observacoes": "O endereço definitivo para sua empresa. Cobertura comercial no polo econômico de Juazeiro, ideal para escritórios de advocacia ou sedes corporativas de alto padrão.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 4,
+      "codigo": "IM-004",
+      "tipo": "Residencial",
+      "subtipo": "Apartamento Garden",
+      "contrato": "Venda",
+      "endereco_bairro": "Lagoa Seca",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 3,
+      "banheiros": 3,
+      "garagens": 2,
+      "valor_venda": 980000,
+      "valor_venda_visivel": true,
+      "exclusivo": false,
+      "imovel_comodidades": "Quintal Privativo, Espaço Pet, Churrasqueira a carvão, Cozinha Americana",
+      "observacoes": "A sensação de morar em uma casa com a segurança de um edifício de elite. Apartamento Garden com ampla área externa privativa.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 5,
+      "codigo": "IM-005",
+      "tipo": "Residencial",
+      "subtipo": "Casa Duplex Luxo",
+      "contrato": "Venda",
+      "endereco_bairro": "Planalto",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 4,
+      "banheiros": 5,
+      "garagens": 4,
+      "valor_venda": 1750000,
+      "valor_venda_visivel": true,
+      "exclusivo": true,
+      "imovel_comodidades": "Piscina com Hidro, Home Cinema, Escritório Independente, Closet Master",
+      "observacoes": "Arquitetura imponente com fachada em pele de vidro. Localizada em uma das áreas que mais valorizam no Cariri.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 6,
+      "codigo": "IM-006",
+      "tipo": "Residencial",
+      "subtipo": "Lote em Condomínio",
+      "contrato": "Venda",
+      "endereco_bairro": "Barbalha",
+      "endereco_cidade": "Barbalha",
+      "dormitorios": 0,
+      "banheiros": 0,
+      "garagens": 0,
+      "valor_venda": 350000,
+      "valor_venda_visivel": true,
+      "exclusivo": false,
+      "imovel_comodidades": "Segurança 24h, Clube Completo, Vista para a Serra, Localização Premium",
+      "observacoes": "O terreno ideal para construir seu refúgio aos pés da Chapada do Araripe.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 7,
+      "codigo": "IM-007",
+      "tipo": "Residencial",
+      "subtipo": "Apartamento Executivo",
+      "contrato": "Locação",
+      "endereco_bairro": "Triângulo",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 2,
+      "banheiros": 2,
+      "garagens": 1,
+      "valor_venda": 3200,
+      "valor_locacao": 3200,
+      "valor_venda_visivel": true,
+      "exclusivo": false,
+      "imovel_comodidades": "Totalmente Mobiliado, Serviço de Concierge, Academia, Coworking no prédio",
+      "observacoes": "Pronto para morar. Ideal para executivos e profissionais que buscam praticidade e localização estratégica no Triângulo.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 8,
+      "codigo": "IM-008",
+      "tipo": "Residencial",
+      "subtipo": "Penthouse",
+      "contrato": "Venda",
+      "endereco_bairro": "Lagoa Seca",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 4,
+      "banheiros": 5,
+      "garagens": 3,
+      "valor_venda": 3200000,
+      "valor_venda_visivel": true,
+      "exclusivo": true,
+      "imovel_comodidades": "Solarium, Jacuzzi, Elevador Privativo, Automação, Finamente Decorado",
+      "observacoes": "O ápice do morar bem. Cobertura linear com acabamentos importados e projeto assinado.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 9,
+      "codigo": "IM-009",
+      "tipo": "Comercial",
+      "subtipo": "Sala Comercial Elite",
+      "contrato": "Locação",
+      "endereco_bairro": "Centro",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 0,
+      "banheiros": 1,
+      "garagens": 1,
+      "valor_venda": 2500,
+      "valor_locacao": 2500,
+      "valor_venda_visivel": true,
+      "exclusivo": false,
+      "imovel_comodidades": "Piso Elevado, Rede Estruturada, Estacionamento Rotativo, Recepção 24h",
+      "observacoes": "A melhor localização para o seu consultório ou escritório. Edifício moderno com alta rotatividade.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=200" }
+      ]
+    },
+    {
+      "id_imovel": 10,
+      "codigo": "IM-010",
+      "tipo": "Residencial",
+      "subtipo": "Casa de Campo",
+      "contrato": "Venda",
+      "endereco_bairro": "Barbalha",
+      "endereco_cidade": "Barbalha",
+      "dormitorios": 5,
+      "banheiros": 4,
+      "garagens": 6,
+      "valor_venda": 1100000,
+      "valor_venda_visivel": true,
+      "exclusivo": true,
+      "imovel_comodidades": "Pomar Formado, Poço Artesiano, Área de Lazer Completa, Casa de Hóspedes",
+      "observacoes": "O refúgio perfeito a poucos minutos do centro de Barbalha.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 11,
+      "codigo": "IM-011",
+      "tipo": "Residencial",
+      "subtipo": "Loft Industrial",
+      "contrato": "Locação",
+      "endereco_bairro": "Triângulo",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 1,
+      "banheiros": 1,
+      "garagens": 1,
+      "valor_venda": 2800,
+      "valor_locacao": 2800,
+      "valor_venda_visivel": true,
+      "exclusivo": true,
+      "imovel_comodidades": "Pé Direito Duplo, Estilo Industrial, Mobília sob medida, Ar-condicionado Split",
+      "observacoes": "Conceito aberto e moderno no polo de serviços da cidade.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=200" }
+      ]
+    },
+    {
+      "id_imovel": 12,
+      "codigo": "IM-012",
+      "tipo": "Residencial",
+      "subtipo": "Casa de Alto Padrão",
+      "contrato": "Venda",
+      "endereco_bairro": "Lagoa Seca",
+      "endereco_cidade": "Juazeiro do Norte",
+      "dormitorios": 4,
+      "banheiros": 5,
+      "garagens": 4,
+      "valor_venda": 2100000,
+      "valor_venda_visivel": true,
+      "exclusivo": false,
+      "imovel_comodidades": "Piscina com Prainha, Cozinha de Ilha, Energia Fotovoltaica, Suíte com Banheira",
+      "observacoes": "Uma residência que equilibra perfeitamente espaço, conforto e design.",
+      "imagens": [
+        { "link": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1200", "link_thumb": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=200" }
+      ]
+    }
+  ]
+}

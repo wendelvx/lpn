@@ -1,49 +1,49 @@
-// front/src/components/PropertyGrid.jsx
 import { useState, useMemo, useEffect } from 'react';
-import useSWR from 'swr';
+import { motion, AnimatePresence } from 'framer-motion';
 import PropertyCard from './PropertyCard';
 import FilterBar from './FilterBar';
 import Pagination from './Pagination';
 import PropertySkeleton from './PropertySkeleton';
+import { LayoutGrid, Key, Building2 } from 'lucide-react';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+// 1. IMPORTAÇÃO DIRETA DO MOCK
+// Certifique-se de que o caminho está correto conforme sua estrutura de pastas
+import mockData from '../data/mock_properties.json'; 
 
 const PropertyGrid = ({ onSelectProperty }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // Quantos cards aparecem por vez
+  const itemsPerPage = 12;
+  const [activeTab, setActiveTab] = useState('Venda');
 
   const [filters, setFilters] = useState({
     type: '',
     city: '',
     neighborhood: '',
-    purpose: '',
     maxPrice: ''
   });
 
-  // SOLUÇÃO: Buscamos 100 imóveis de uma vez para popular os filtros e permitir busca real
-  const { data, error, isLoading } = useSWR(
-    `/api/properties?page=1&pageSize=100`, 
-    fetcher,
-    { revalidateOnFocus: false, dedupingInterval: 60000 }
-  );
+  // 2. DADOS LOCAIS (Substituindo useSWR por enquanto)
+  const allProperties = mockData?.data || [];
+  const isLoading = false; // Como o dado é local, o carregamento é instantâneo
+  const error = null;
 
-  const allProperties = data?.data || [];
-
-  // 1. Lógica de Filtragem: Filtrar sobre TODOS os 100 imóveis recebidos
+  // 3. Lógica de Filtragem (Ajustada para Case-Sensitivity)
   const filteredProperties = useMemo(() => {
     if (!Array.isArray(allProperties)) return [];
+    
     return allProperties.filter(item => {
+      // Filtro de Aba: Garantimos que o "contrato" bata exatamente com a aba ativa
+      const matchPurpose = item.contrato === activeTab;
+      
       const matchType = !filters.type || item.subtipo === filters.type;
       const matchCity = !filters.city || item.endereco_cidade === filters.city;
       const matchNeighborhood = !filters.neighborhood || item.endereco_bairro === filters.neighborhood;
-      const matchPurpose = !filters.purpose || (item.contrato && item.contrato.includes(filters.purpose));
       const matchPrice = !filters.maxPrice || (item.valor_venda <= parseFloat(filters.maxPrice));
       
-      return matchType && matchCity && matchNeighborhood && matchPurpose && matchPrice;
+      return matchPurpose && matchType && matchCity && matchNeighborhood && matchPrice;
     });
-  }, [allProperties, filters]);
+  }, [allProperties, filters, activeTab]);
 
-  // 2. Lógica de Paginação Local: Cortar a lista filtrada para exibir apenas 12
   const propertiesToDisplay = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     return filteredProperties.slice(startIndex, startIndex + itemsPerPage);
@@ -51,82 +51,83 @@ const PropertyGrid = ({ onSelectProperty }) => {
 
   const totalPages = Math.ceil(filteredProperties.length / itemsPerPage) || 1;
 
-  // 3. Metadados para os Selects: Gerados a partir de TODOS os imóveis
+  // Metadados dinâmicos baseados no Mock
   const cities = useMemo(() => 
-    [...new Set(allProperties.map(p => p.endereco_cidade))].filter(Boolean).sort()
-  , [allProperties]);
+    [...new Set(allProperties.filter(p => p.contrato === activeTab).map(p => p.endereco_cidade))].filter(Boolean).sort()
+  , [allProperties, activeTab]);
+
+  const types = useMemo(() => 
+    [...new Set(allProperties.filter(p => p.contrato === activeTab).map(p => p.subtipo))].filter(Boolean).sort()
+  , [allProperties, activeTab]);
 
   const neighborhoods = useMemo(() => {
     const source = filters.city 
-      ? allProperties.filter(p => p.endereco_cidade === filters.city)
-      : allProperties;
+      ? allProperties.filter(p => p.endereco_cidade === filters.city && p.contrato === activeTab)
+      : allProperties.filter(p => p.contrato === activeTab);
     return [...new Set(source.map(p => p.endereco_bairro))].filter(Boolean).sort();
-  }, [allProperties, filters.city]);
+  }, [allProperties, filters.city, activeTab]);
 
-  const types = useMemo(() => 
-    [...new Set(allProperties.map(p => p.subtipo))].filter(Boolean).sort()
-  , [allProperties]);
-
-  // Resetar página e bairro ao mudar cidade ou outros filtros
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filters]);
-
-  useEffect(() => {
-    setFilters(prev => ({ ...prev, neighborhood: '' }));
-  }, [filters.city]);
+  useEffect(() => { setCurrentPage(1); }, [filters, activeTab]);
+  useEffect(() => { setFilters(prev => ({ ...prev, neighborhood: '' })); }, [filters.city]);
 
   return (
-    <section id="property-grid" className="container mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-20">
+    <section id="property-grid" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-20">
       
+      <div className="flex justify-center mb-10">
+        <div className="inline-flex p-1.5 bg-slate-100 rounded-[2rem] border border-slate-200 shadow-inner">
+          <button
+            onClick={() => setActiveTab('Venda')}
+            className={`flex items-center gap-2 px-8 py-3 rounded-full text-sm font-black transition-all ${
+              activeTab === 'Venda' ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            <Building2 size={18} /> Comprar
+          </button>
+          <button
+            onClick={() => setActiveTab('Locação')}
+            className={`flex items-center gap-2 px-8 py-3 rounded-full text-sm font-black transition-all ${
+              activeTab === 'Locação' ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'
+            }`}
+          >
+            <Key size={18} /> Alugar
+          </button>
+        </div>
+      </div>
+
       <FilterBar 
-        filters={filters} 
-        setFilters={setFilters} 
-        cities={cities}
-        neighborhoods={neighborhoods}
-        types={types}
+        filters={filters} setFilters={setFilters} 
+        cities={cities} neighborhoods={neighborhoods} types={types}
       />
 
-      {isLoading ? (
-        <PropertySkeleton />
-      ) : (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-            {propertiesToDisplay.map(item => (
-              <PropertyCard 
-                key={item.id_imovel} 
-                property={item} 
-                onSelect={onSelectProperty} 
-              />
-            ))}
-          </div>
+      <div className="mb-8 flex items-center justify-between">
+        <p className="text-slate-400 text-sm font-bold uppercase tracking-widest">
+          {filteredProperties.length} Imóveis para {activeTab === 'Venda' ? 'Investimento' : 'Moradia'}
+        </p>
+        <div className="h-px flex-grow mx-6 bg-slate-100 hidden sm:block"></div>
+      </div>
 
-          <div className="mt-12 sm:mt-16">
-            <Pagination 
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={(page) => {
-                setCurrentPage(page);
-                const element = document.getElementById('property-grid');
-                const offset = (element?.offsetTop || 0) - 100;
-                window.scrollTo({ top: offset, behavior: 'smooth' });
-              }}
-            />
-          </div>
+      <AnimatePresence mode="wait">
+        <motion.div 
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
+        >
+          {propertiesToDisplay.map(item => (
+            <PropertyCard key={item.id_imovel} property={item} onSelect={onSelectProperty} />
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
-          {filteredProperties.length === 0 && (
-            <div className="text-center py-16 sm:py-24 bg-gray-50 rounded-[2rem] sm:rounded-[3rem] mt-10 border border-dashed border-gray-200 px-6">
-              <p className="text-gray-400 font-medium text-base sm:text-lg">
-                Nenhum imóvel encontrado com esses filtros.
-              </p>
-            </div>
-          )}
-        </>
-      )}
+      <div className="mt-12 sm:mt-16">
+        <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      </div>
 
-      {error && (
-        <div className="text-center py-10 text-red-500 font-semibold bg-red-50 rounded-2xl border border-red-100 mt-6">
-          Erro ao conectar com o catálogo. Por favor, tente novamente.
+      {filteredProperties.length === 0 && (
+        <div className="text-center py-20 bg-slate-50 rounded-[3rem] mt-10 border border-dashed border-slate-200">
+          <p className="text-slate-500 font-bold text-lg">Nenhuma oportunidade encontrada nesta categoria.</p>
         </div>
       )}
     </section>
