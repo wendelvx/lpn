@@ -51,11 +51,14 @@ const Hero = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-base sm:text-xl text-slate-500 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium"
+            className="text-base sm:text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium"
           >
-            Há mais de **15 anos**, a **Ítalo Mello Negócios Imobiliários** atua com transparência e rigor técnico no Cariri. Nossa curadoria é feita com foco na solidez do seu patrimônio, garantindo que cada investimento seja pautado pela ética e pela segurança jurídica.
+            Há mais de <span className="text-slate-900 font-bold underline decoration-blue-500/30 underline-offset-4">15 anos</span>, a 
+            <span className="text-slate-900 font-bold"> Ítalo Mello Negócios Imobiliários</span> atua com transparência e rigor técnico na região do Cariri. 
+            Nossa curadoria é realizada com foco na preservação do seu patrimônio, assegurando que cada decisão seja pautada pela ética e pela total segurança jurídica.
           </motion.p>
 
+          {/* Botões Gêmeos de Conversão */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,6 +82,7 @@ const Hero = () => {
             </button>
           </motion.div>
 
+          {/* Prova Social de Autoridade */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
