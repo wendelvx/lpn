@@ -47,7 +47,6 @@ const Hero = () => {
             <span className="text-blue-600">com a sua melhor</span> escolha.
           </motion.h1>
           
-          {/* Parágrafo Estilizado (Sem **) */}
           <motion.p 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -101,10 +100,8 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            {/* Moldura Flutuante */}
             <div className="absolute inset-0 border-2 border-blue-600/10 rounded-[3rem] rotate-6 scale-105"></div>
             
-            {/* Container da Imagem principal (z-10) */}
             <div className="relative z-10 w-64 h-80 sm:w-80 sm:h-[450px] lg:w-[380px] lg:h-[520px] rounded-[2.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-8 border-white bg-slate-100">
               <img 
                 src={profileImg}
@@ -121,16 +118,16 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* ✅ CORREÇÃO AQUI: z-20 para garantir que o badge fique SOBRE o card */}
+            {/* ✅ NOME ALTERADO: Agora "Especialista Imobiliário" */}
             <div className="absolute -top-6 -right-4 sm:-right-6 bg-white p-6 rounded-3xl shadow-2xl border border-slate-50 hidden sm:block z-20">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest whitespace-nowrap">
-                  Consultoria Ativa
+                  Especialista Imobiliário
                 </span>
               </div>
               <p className="text-slate-400 text-[9px] font-bold uppercase leading-tight text-center italic">
-                Atendimento direto <br />com especialistas
+                Atendimento direto <br />com quem conhece o mercado
               </p>
             </div>
           </motion.div>

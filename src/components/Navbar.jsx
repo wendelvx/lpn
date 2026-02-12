@@ -5,11 +5,11 @@ import logomelo from '../assets/logomelo.png';
 
 const Navbar = ({ onHomeClick }) => {
   const phoneNumber = "558897699917";
-  const message = "Olá! Solicito uma consultoria imobiliária exclusiva com a Ítalo Mello Negócios.";
+  const message = "Olá! Gostaria de falar com um especialista sobre os ativos do portfólio da Ítalo Mello Negócios.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   const handleNavigate = (sectionId) => {
-    onHomeClick(); // Reseta estado de detalhes no App.jsx
+    onHomeClick(); // Reseta para a Home caso esteja em detalhes
     
     setTimeout(() => {
       if (sectionId === 'top') {
@@ -36,7 +36,7 @@ const Navbar = ({ onHomeClick }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* 🏷️ Lado Esquerdo: Branding Ítalo Mello (Logo sempre preta) */}
+          {/* 🏷️ Lado Esquerdo: Branding Ítalo Mello */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -44,7 +44,6 @@ const Navbar = ({ onHomeClick }) => {
             onClick={() => handleNavigate('top')}
           >
             <div className="relative">
-              {/* brightness-0 aplicado permanentemente para tornar o texto branco em preto */}
               <img 
                 src={logomelo}
                 alt="Ítalo Mello Negócios Imobiliários" 
@@ -78,7 +77,7 @@ const Navbar = ({ onHomeClick }) => {
             ))}
           </div>
 
-          {/* 💎 Lado Direito: CTA "Private" (Sempre modo Executive Dark) */}
+          {/* 💎 Lado Direito: Atendimento com Especialista */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -88,15 +87,16 @@ const Navbar = ({ onHomeClick }) => {
               href={whatsappUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="group relative flex items-center gap-3 bg-slate-900 hover:bg-blue-700 text-white px-6 py-3.5 md:px-8 md:py-4 rounded-2xl text-[10px] md:text-xs font-black transition-all active:scale-95 overflow-hidden shadow-xl shadow-slate-200"
+              className="group relative flex items-center gap-3 bg-slate-900 hover:bg-blue-700 text-white px-5 py-3 md:px-7 md:py-4 rounded-2xl text-[10px] md:text-xs font-black transition-all active:scale-95 overflow-hidden shadow-xl shadow-slate-200"
             >
+              {/* Efeito de brilho executivo */}
               <motion.div 
                 animate={{ x: ['-100%', '200%'] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
               />
               <MessageCircle size={18} className="group-hover:rotate-12 transition-transform shrink-0" />
-              <span className="uppercase tracking-[0.2em]">Consultoria Privada</span>
+              <span className="uppercase tracking-[0.15em]">Falar com Especialista</span>
             </a>
           </motion.div>
 
