@@ -67,7 +67,7 @@ const ExecutiveBio = () => {
                   </div>
                   <div>
                     <h4 className="font-black text-slate-900 uppercase text-xs tracking-wider">Gestão de Riscos</h4>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">CRECI: 243.87J</p>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">CRECI: 18.865-J</p>
                   </div>
                 </div>
 
