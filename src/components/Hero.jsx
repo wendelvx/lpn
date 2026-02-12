@@ -36,7 +36,7 @@ const Hero = () => {
             />
           </motion.div>
 
-          {/* Headline: Foco em Segurança, Cuidado e Escolha Correta */}
+          {/* Headline */}
           <motion.h1 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -47,18 +47,18 @@ const Hero = () => {
             <span className="text-blue-600">com a sua melhor</span> escolha.
           </motion.h1>
           
+          {/* Parágrafo Estilizado (Sem **) */}
           <motion.p 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
             className="text-base sm:text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium"
           >
-            Há mais de <span className="text-slate-900 font-bold underline decoration-blue-500/30 underline-offset-4">15 anos</span>, a 
+            Há mais de <span className="text-slate-900 font-bold border-b-2 border-blue-500/20 pb-0.5">15 anos</span>, a 
             <span className="text-slate-900 font-bold"> Ítalo Mello Negócios Imobiliários</span> atua com transparência e rigor técnico na região do Cariri. 
             Nossa curadoria é realizada com foco na preservação do seu patrimônio, assegurando que cada decisão seja pautada pela ética e pela total segurança jurídica.
           </motion.p>
 
-          {/* Botões Gêmeos de Conversão */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,7 +82,6 @@ const Hero = () => {
             </button>
           </motion.div>
 
-          {/* Prova Social de Autoridade */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -102,8 +101,10 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
+            {/* Moldura Flutuante */}
             <div className="absolute inset-0 border-2 border-blue-600/10 rounded-[3rem] rotate-6 scale-105"></div>
             
+            {/* Container da Imagem principal (z-10) */}
             <div className="relative z-10 w-64 h-80 sm:w-80 sm:h-[450px] lg:w-[380px] lg:h-[520px] rounded-[2.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-8 border-white bg-slate-100">
               <img 
                 src={profileImg}
@@ -120,12 +121,17 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="absolute -top-6 -right-6 bg-white p-6 rounded-3xl shadow-2xl border border-slate-50 hidden sm:block">
+            {/* ✅ CORREÇÃO AQUI: z-20 para garantir que o badge fique SOBRE o card */}
+            <div className="absolute -top-6 -right-4 sm:-right-6 bg-white p-6 rounded-3xl shadow-2xl border border-slate-50 hidden sm:block z-20">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Consultoria Ativa</span>
+                <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest whitespace-nowrap">
+                  Consultoria Ativa
+                </span>
               </div>
-              <p className="text-slate-400 text-[9px] font-bold uppercase leading-tight text-center italic">Atendimento direto <br />com especialistas</p>
+              <p className="text-slate-400 text-[9px] font-bold uppercase leading-tight text-center italic">
+                Atendimento direto <br />com especialistas
+              </p>
             </div>
           </motion.div>
         </div>
