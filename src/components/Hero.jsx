@@ -33,7 +33,7 @@ const Hero = () => {
               className="h-12 sm:h-16 md:h-20 w-auto object-contain brightness-0 opacity-90 transition-all duration-500" 
             />
             <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] ml-1">
-              Direto Executivo
+              Diretor Executivo
             </span>
           </motion.div>
 
