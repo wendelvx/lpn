@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ExecutiveBio from './components/ExecutiveBio'; // NOVO: Autoridade
-import BrokerGrid from './components/BrokerGrid';     // NOVO: Ecossistema
+import ExecutiveBio from './components/ExecutiveBio'; 
+import BrokerGrid from './components/BrokerGrid';     
 import PropertyGrid from './components/PropertyGrid';
 import PropertyDetails from './components/PropertyDetails';
 import Footer from './components/Footer';
@@ -11,9 +11,16 @@ import Footer from './components/Footer';
 function App() {
   const [selectedPropertyCode, setSelectedPropertyCode] = useState(null);
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   const handleSelectProperty = (code) => {
     setSelectedPropertyCode(code);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Mudado para instant para evitar scroll visual na troca
   };
 
   const handleBack = () => {
@@ -28,65 +35,60 @@ function App() {
       const element = document.getElementById('catalog');
       if (element) {
         const offset = element.offsetTop - 100;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
+        window.scrollTo({ top: offset, behavior: 'instant' });
       }
-    }, 100);
+    }, 10); // Reduzido timeout para ser imperceptível
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] flex flex-col font-sans selection:bg-gold-500 selection:text-white">
-      {/* Background sutil para o tom Executive Dark */}
+    <div className="min-h-screen bg-[#0f172a] flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+      
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-[110]"
+        style={{ scaleX }}
+      />
+
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black -z-50" />
 
       <Navbar onHomeClick={() => setSelectedPropertyCode(null)} />
 
-      <AnimatePresence mode="wait">
+      {/* Removido o mode="wait" para evitar o gap visual (blink) */}
+      <AnimatePresence>
         {!selectedPropertyCode ? (
           <motion.div
             key="landing"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex-grow"
+            // Removidas as props initial, animate e exit que causavam o fade total
           >
-            {/* 1. Impacto Inicial */}
             <Hero />
+            <ExecutiveBio />
 
-            {/* 2. Prova Social e Autoridade (The Owner) */}
-            <section className="py-16 bg-white">
-              <ExecutiveBio />
-            </section>
-
-            {/* 3. Catálogo Premium (Antigo PropertyGrid) */}
-            <main id="catalog" className="py-20 px-4">
+            <main id="catalog" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
                <div className="container mx-auto">
-                  <header className="mb-12 text-center lg:text-left">
-                    <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
-                      Curadoria <span className="text-blue-500">Exclusiva</span>
-                    </h2>
-                    <p className="text-slate-400 max-w-2xl font-medium">
-                      Imóveis selecionados sob rigorosos critérios de liquidez e alto padrão.
-                    </p>
+                  <header className="mb-8 lg:mb-12 text-center lg:text-left">
+                    <div>
+                      <h2 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight">
+                        Portfólio de <span className="text-blue-500 font-medium">Ativos</span>
+                      </h2>
+                      <p className="text-slate-400 max-w-xl font-medium text-base lg:text-lg leading-relaxed">
+                        Curadoria técnica de imóveis com alto potencial de valorização.
+                      </p>
+                    </div>
                   </header>
                   <PropertyGrid onSelectProperty={handleSelectProperty} />
                </div>
             </main>
 
-            {/* 4. Ecossistema (O Time) */}
-            <section className="py-20 bg-slate-50">
-              <BrokerGrid />
-            </section>
-
+            <BrokerGrid />
           </motion.div>
         ) : (
           <motion.div
             key="details"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.4 }}
-            className="flex-grow pt-24"
+            className="flex-grow pt-20 lg:pt-28"
+            // Transição mais sutil apenas para os detalhes
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
           >
             <PropertyDetails 
               propertyCode={selectedPropertyCode} 

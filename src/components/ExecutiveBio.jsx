@@ -4,93 +4,132 @@ import { Award, ShieldCheck, Star, Quote } from 'lucide-react';
 import ownerImg from "../assets/profile.png"; 
 
 const ExecutiveBio = () => {
+  // Variantes para a animação em cascata (Stagger)
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15, // Atraso entre cada filho
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
   return (
-    /* ADICIONADO: id="about" para a navegação do Navbar */
-    <section id="about" className="relative overflow-hidden bg-white py-20 lg:py-32">
-      {/* Elemento Decorativo de Fundo */}
-      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-blue-50 rounded-full blur-3xl opacity-50" />
+    <section id="about" className="relative overflow-hidden bg-white py-12 lg:py-20">
+      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-72 h-72 bg-blue-50 rounded-full blur-3xl opacity-40" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           
-          {/* Lado Esquerdo: Imagem com Moldura de Luxo */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative w-full lg:w-1/2 max-w-md"
-          >
-            <div className="absolute inset-0 border-[12px] border-slate-900 rounded-[3rem] translate-x-6 translate-y-6 -z-10 hidden sm:block" />
-            <div className="relative z-10 overflow-hidden rounded-[2.5rem] shadow-2xl aspect-[4/5]">
-              <img 
-                src={ownerImg} 
-                alt="Ítalo Mello - Diretor" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 to-transparent p-8 text-white">
-                <p className="text-[10px] font-black tracking-[0.3em] uppercase mb-1 opacity-80">Fundador & Diretor</p>
-                <h3 className="text-3xl font-black tracking-tight">Ítalo Mello</h3>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Lado Direito: Conteúdo de Autoridade Máxima */}
-          <div className="w-full lg:w-1/2">
+          {/* Lado Esquerdo: Imagem com Revelação Suave */}
+          <div className="relative w-full lg:w-1/2 max-w-sm lg:max-w-md">
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="space-y-6"
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-widest">
-                <Star size={14} fill="currentColor" />
-                Liderança e Visão de Mercado
+              <div className="relative z-10 overflow-hidden rounded-[2rem] shadow-2xl aspect-[4/5] bg-slate-100">
+                <img 
+                  src={ownerImg} 
+                  alt="Ítalo Mello - Diretor" 
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent p-6 text-white">
+                  <p className="text-[9px] font-black tracking-[0.3em] uppercase mb-1 opacity-80">Fundador & Diretor</p>
+                  <h3 className="text-2xl font-black tracking-tight">Ítalo Mello</h3>
+                </div>
               </div>
 
-              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight">
-                Assinatura de quem <br />
-                <span className="text-blue-600">domina o setor</span>
-              </h2>
+              {/* Badge Especialista com entrada atrasada (Pop-in) */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, x: 10 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="absolute -top-4 -right-4 bg-white p-4 rounded-2xl shadow-xl border border-slate-50 z-20"
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-[9px] font-black text-slate-900 uppercase tracking-widest whitespace-nowrap">
+                    Especialista Imobiliário
+                  </span>
+                </div>
+                <p className="text-slate-400 text-[8px] font-bold uppercase leading-tight italic text-center">Atendimento direto</p>
+              </motion.div>
+            </motion.div>
+          </div>
 
-              <div className="relative">
-                <Quote className="absolute -top-4 -left-4 text-blue-100 w-12 h-12 -z-10" />
-                <p className="text-lg text-slate-600 leading-relaxed font-medium italic">
-                  "Na Ítalo Mello Negócios Imobiliários, nossa atuação vai além da venda; entregamos inteligência de mercado e curadoria rigorosa para garantir que cada ativo em nosso portfólio seja um investimento sólido."
+          {/* Lado Direito: Conteúdo com Stagger (Efeito Cascata) */}
+          <div className="w-full lg:w-1/2 text-center lg:text-left">
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="space-y-5"
+            >
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-[9px] font-black uppercase tracking-widest mx-auto lg:mx-0">
+                <Star size={12} fill="currentColor" />
+                Compromisso com o seu Patrimônio
+              </motion.div>
+
+              <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight">
+                A segurança de quem <br />
+                <span className="text-blue-600">cuida de cada detalhe.</span>
+              </motion.h2>
+
+              <motion.div variants={itemVariants} className="relative pt-2">
+                <Quote className="absolute -top-2 -left-4 text-blue-100 w-10 h-10 -z-10 hidden lg:block" />
+                <p className="text-base lg:text-lg text-slate-600 leading-relaxed font-medium italic">
+                  "Na <span className="text-slate-900 font-bold">Ítalo Mello Negócios Imobiliários</span>, nossa missão é garantir que sua transição patrimonial seja cercada de cuidado e total segurança jurídica."
                 </p>
-              </div>
+              </motion.div>
 
-              {/* Grid de Diferenciais Institucionais */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
-                <div className="flex items-start gap-4 p-5 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-all group">
-                  <div className="bg-white p-3 rounded-2xl shadow-sm text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <ShieldCheck size={24} />
+              {/* Grid de Diferenciais entrando um por um */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 text-left">
+                <motion.div variants={itemVariants} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow group">
+                  <div className="bg-white p-2.5 rounded-xl shadow-sm text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
+                    <ShieldCheck size={20} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 uppercase text-xs tracking-wider">Gestão de Riscos</h4>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">CRECI: 18.865-J</p>
+                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider">Gestão de Riscos</h4>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase mt-0.5">CRECI: 18.865-J</p>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="flex items-start gap-4 p-5 rounded-3xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-all group">
-                  <div className="bg-white p-3 rounded-2xl shadow-sm text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <Award size={24} />
+                <motion.div variants={itemVariants} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow group">
+                  <div className="bg-white p-2.5 rounded-xl shadow-sm text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
+                    <Award size={20} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 uppercase text-xs tracking-wider">Expertise Triple A</h4>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">Negócios Estratégicos</p>
+                    <h4 className="font-bold text-slate-900 text-xs uppercase tracking-wider">Análise Técnica</h4>
+                    <p className="text-[10px] text-slate-500 font-bold uppercase mt-0.5">Negócios Estratégicos</p>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
-              <div className="pt-8">
+              <motion.div variants={itemVariants} className="pt-6">
                 <button 
                   onClick={() => window.open('https://wa.me/558897699917', '_blank')}
-                  className="bg-slate-900 hover:bg-blue-700 text-white px-10 py-5 rounded-2xl font-black transition-all shadow-2xl shadow-slate-200 flex items-center gap-4 group text-xs uppercase tracking-widest"
+                  className="w-full sm:w-auto bg-slate-900 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-black transition-all shadow-lg active:scale-95 flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest"
                 >
-                  Conhecer Nossa Trajetória
-                  <span className="group-hover:translate-x-2 transition-transform text-xl">→</span>
+                  Falar com o Especialista
+                  <span className="text-lg">→</span>
                 </button>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>

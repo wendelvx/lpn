@@ -49,7 +49,7 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
   if (!property) return <div className="py-20 text-center font-bold text-slate-400">Ativo não localizado.</div>;
 
   const isVenda = property.contrato?.includes('Venda');
-  const shareMessage = `Olá! Gostaria de falar com o corretor sobre o imóvel: ${property.subtipo} (Ref: ${property.codigo}).`;
+  const shareMessage = `Olá! Gostaria de falar com um corretor sobre o imóvel: ${property.subtipo} (Ref: ${property.codigo}).`;
   const whatsappUrl = `https://wa.me/${brokerPhone}?text=${encodeURIComponent(shareMessage)}`;
   const currentMainImage = property.imagens?.[currentIndex]?.link || '';
 
@@ -225,7 +225,7 @@ const PropertyDetails = ({ propertyCode, onBack }) => {
               className="group flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full bg-blue-600 hover:bg-slate-900 text-white font-black py-5 sm:py-6 rounded-2xl sm:rounded-3xl shadow-xl shadow-blue-100 transition-all active:scale-95 text-base sm:text-lg uppercase tracking-widest"
             >
               <UserCheck size={24} className="group-hover:scale-110 transition-transform" />
-              <span>Falar com o Corretor</span>
+              <span>Falar com um Corretor</span>
             </a>
             
             <p className="text-center mt-4 text-slate-400 text-[9px] font-bold uppercase tracking-[0.2em]">
