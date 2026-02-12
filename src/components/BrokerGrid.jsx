@@ -9,7 +9,6 @@ const brokers = [
 ];
 
 const BrokerGrid = () => {
-  // Variantes para o container (cascata)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,7 +20,6 @@ const BrokerGrid = () => {
     }
   };
 
-  // Variantes para cada card (entrada suave)
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: { 
@@ -38,7 +36,6 @@ const BrokerGrid = () => {
     <section className="bg-slate-50 py-12 lg:py-16 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Cabeçalho com Animação Premium */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +52,6 @@ const BrokerGrid = () => {
           <div className="w-16 h-1 bg-blue-600 rounded-full mx-auto" />
         </motion.div>
 
-        {/* Grid com Efeito Cascata */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -73,25 +69,23 @@ const BrokerGrid = () => {
                 transformStyle: 'preserve-3d'
               }}
             >
-              {/* Container da Imagem Estabilizado */}
               <div className="relative h-80 lg:h-96 overflow-hidden bg-slate-200">
                 <img 
                   src={broker.image} 
                   alt={broker.name} 
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 transform-gpu"
+                  // ✅ CORREÇÃO: grayscale-0 no mobile, lg:grayscale no PC
+                  className="w-full h-full object-cover grayscale-0 lg:grayscale lg:group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 transform-gpu"
                   style={{
                     willChange: 'filter, transform'
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
                 
-                {/* Badge de CRECI */}
                 <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-slate-100 shadow-sm z-10">
                   <p className="text-[8px] font-black text-slate-900 uppercase tracking-widest">CRECI: {broker.creci}</p>
                 </div>
               </div>
 
-              {/* Informações do Consultor */}
               <div className="p-6 lg:p-8 text-center bg-white relative z-10">
                 <div className="flex justify-center gap-1 mb-2 text-blue-500">
                   {[...Array(5)].map((_, i) => (
@@ -113,7 +107,6 @@ const BrokerGrid = () => {
           ))}
         </motion.div>
 
-        {/* Rodapé da Seção Estilizado */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

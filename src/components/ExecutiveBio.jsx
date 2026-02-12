@@ -4,24 +4,24 @@ import { Award, ShieldCheck, Star, Quote } from 'lucide-react';
 import ownerImg from "../assets/profile.png"; 
 
 const ExecutiveBio = () => {
-  // Variantes para a animação em cascata (Stagger)
+  // Variantes otimizadas para performance mobile
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15, // Atraso entre cada filho
-        delayChildren: 0.2
+        staggerChildren: 0.1, 
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 10 }, 
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
@@ -32,20 +32,20 @@ const ExecutiveBio = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           
-          {/* Lado Esquerdo: Imagem com Revelação Suave */}
+          {/* Lado Esquerdo: Imagem (Colorida no Mobile / Grayscale no PC) */}
           <div className="relative w-full lg:w-1/2 max-w-sm lg:max-w-md">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8 }}
+              className="relative transform-gpu" 
             >
               <div className="relative z-10 overflow-hidden rounded-[2rem] shadow-2xl aspect-[4/5] bg-slate-100">
                 <img 
                   src={ownerImg} 
                   alt="Ítalo Mello - Diretor" 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                  className="w-full h-full object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 transition-all duration-700 transform-gpu"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent p-6 text-white">
                   <p className="text-[9px] font-black tracking-[0.3em] uppercase mb-1 opacity-80">Fundador & Diretor</p>
@@ -53,12 +53,12 @@ const ExecutiveBio = () => {
                 </div>
               </div>
 
-              {/* Badge Especialista com entrada atrasada (Pop-in) */}
+              {/* Badge Pop-in suave */}
               <motion.div 
-                initial={{ opacity: 0, scale: 0.8, x: 10 }}
-                whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.6, duration: 0.6 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
                 className="absolute -top-4 -right-4 bg-white p-4 rounded-2xl shadow-xl border border-slate-50 z-20"
               >
                 <div className="flex items-center gap-2 mb-1">
@@ -72,13 +72,13 @@ const ExecutiveBio = () => {
             </motion.div>
           </div>
 
-          {/* Lado Direito: Conteúdo com Stagger (Efeito Cascata) */}
+          {/* Lado Direito: Conteúdo */}
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <motion.div 
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: "-50px" }}
               className="space-y-5"
             >
               <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-[9px] font-black uppercase tracking-widest mx-auto lg:mx-0">
@@ -86,6 +86,7 @@ const ExecutiveBio = () => {
                 Compromisso com o seu Patrimônio
               </motion.div>
 
+              {/* ✅ CORREÇÃO AQUI: Fechamento </motion.h2> */}
               <motion.h2 variants={itemVariants} className="text-3xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight">
                 A segurança de quem <br />
                 <span className="text-blue-600">cuida de cada detalhe.</span>
@@ -98,9 +99,8 @@ const ExecutiveBio = () => {
                 </p>
               </motion.div>
 
-              {/* Grid de Diferenciais entrando um por um */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 text-left">
-                <motion.div variants={itemVariants} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow group">
+                <motion.div variants={itemVariants} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 group">
                   <div className="bg-white p-2.5 rounded-xl shadow-sm text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
                     <ShieldCheck size={20} />
                   </div>
@@ -110,7 +110,7 @@ const ExecutiveBio = () => {
                   </div>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow group">
+                <motion.div variants={itemVariants} className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 group">
                   <div className="bg-white p-2.5 rounded-xl shadow-sm text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
                     <Award size={20} />
                   </div>

@@ -11,7 +11,6 @@ const Hero = () => {
     window.scrollTo({ top: offset, behavior: 'smooth' });
   };
 
-  // Variantes para efeito cascata (Premium Stagger)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -34,7 +33,7 @@ const Hero = () => {
 
   return (
     <header className="relative bg-white pt-28 pb-12 lg:pt-32 lg:pb-16 overflow-hidden">
-      {/* Background Decor com animação sutil */}
+      {/* Background Decor */}
       <motion.div 
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
@@ -44,9 +43,8 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 lg:flex lg:items-center lg:gap-12">
         
-        {/* 1. Lado Esquerdo: Conteúdo de Autoridade */}
+        {/* 1. Lado Esquerdo: Conteúdo */}
         <div className="w-full lg:w-3/5 text-center lg:text-left z-10">
-          
           <motion.div 
             variants={containerVariants}
             initial="hidden"
@@ -65,20 +63,17 @@ const Hero = () => {
               </span>
             </motion.div>
 
-            {/* Headline */}
             <motion.h1 variants={itemVariants} className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.1] mb-6 tracking-tight">
               Segurança e o cuidado <br />
               <span className="text-blue-600">com a sua melhor</span> escolha.
             </motion.h1>
             
-            {/* Texto de Apoio */}
             <motion.p variants={itemVariants} className="text-sm sm:text-base lg:text-lg text-slate-500 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
               Há mais de <span className="text-slate-900 font-bold border-b-2 border-blue-500/20 pb-0.5">15 anos</span>, a 
               <span className="text-slate-900 font-bold"> Ítalo Mello Negócios Imobiliários</span> atua com rigor técnico na região do Cariri. 
               Nossa curadoria é realizada com foco na preservação do seu patrimônio e na total segurança jurídica.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto">
               <button 
                 onClick={scrollToCatalog}
@@ -97,7 +92,6 @@ const Hero = () => {
               </button>
             </motion.div>
 
-            {/* Badges de Confiança */}
             <motion.div variants={itemVariants} className="mt-8 lg:mt-10 flex items-center justify-center lg:justify-start gap-5 text-slate-400 font-bold text-[9px] uppercase tracking-widest">
               <span className="flex items-center gap-2"><CheckCircle size={14} className="text-blue-600" /> +15 Anos de Mercado</span>
               <span className="h-4 w-px bg-slate-200 hidden sm:block"></span>
@@ -106,13 +100,13 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* 2. Lado Direito: Perfil com Revelação Lateral */}
+        {/* 2. Lado Direito: Perfil */}
         <div className="w-full lg:w-2/5 mt-12 lg:mt-0 relative flex justify-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-            className="relative"
+            className="relative transform-gpu"
           >
             <div className="absolute inset-0 border-2 border-blue-600/10 rounded-[2.5rem] rotate-3 scale-105"></div>
             
@@ -120,7 +114,8 @@ const Hero = () => {
               <img 
                 src={profileImg}
                 alt="Ítalo Mello" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                // ✅ AJUSTE: Colorida no mobile (grayscale-0), Grayscale no desktop (lg:grayscale)
+                className="w-full h-full object-cover grayscale-0 lg:grayscale lg:hover:grayscale-0 transition-all duration-1000 transform-gpu"
               />
               
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent p-6 sm:p-8">
@@ -132,7 +127,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Especialista Imobiliário Badge (Pop-in atrasado) */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -145,7 +139,7 @@ const Hero = () => {
                   Especialista Imobiliário
                 </span>
               </div>
-              <p className="text-slate-400 text-[8px] sm:text-[9px] font-bold uppercase leading-tight italic">
+              <p className="text-slate-400 text-[8px] sm:text-[9px] font-bold uppercase leading-tight italic text-center">
                 Atendimento direto
               </p>
             </motion.div>
