@@ -88,7 +88,7 @@ const Footer = ({ onNavigateToGrid }) => {
               <div className="py-3.5 px-6 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md shadow-inner flex items-center gap-3">
                 <ShieldCheck size={20} className="text-blue-500" />
                 <div>
-                  <p className="font-black text-white tracking-[0.2em] text-[10px] leading-none mb-1">CRECI: 243.87J</p>
+                  <p className="font-black text-white tracking-[0.2em] text-[10px] leading-none mb-1">CRECI: 18.865-J</p>
                   <p className="text-[8px] text-slate-500 uppercase font-black tracking-tighter">Conselho Regional</p>
                 </div>
               </div>
