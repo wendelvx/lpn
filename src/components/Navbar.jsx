@@ -5,7 +5,7 @@ import logomelo from '../assets/logomelo.png';
 
 const Navbar = ({ onHomeClick }) => {
   const phoneNumber = "558897699917";
-  const message = "Olá! Gostaria de falar com um especialista sobre os ativos do portfólio da Ítalo Mello Negócios.";
+  const message = "Olá! Vi a página e gostaria de falar com um corretor especialista sobre os ativos do portfólio da Ítalo Mello Negócios.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   const handleNavigate = (sectionId) => {
@@ -96,7 +96,7 @@ const Navbar = ({ onHomeClick }) => {
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
               />
               <MessageCircle size={18} className="group-hover:rotate-12 transition-transform shrink-0" />
-              <span className="uppercase tracking-[0.15em]">Falar com Especialista</span>
+              <span className="uppercase tracking-[0.15em]">Falar com um Especialista</span>
             </a>
           </motion.div>
 

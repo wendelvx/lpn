@@ -88,7 +88,7 @@ const BrokerGrid = () => {
                   {broker.role}
                 </p>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                  Consultor Parceiro
+                  Corretor Parceiro
                 </p>
               </div>
             </motion.div>
