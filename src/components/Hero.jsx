@@ -26,14 +26,15 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center lg:items-start gap-3 mb-12"
           >
-            <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] ml-1">
-              Diretoria Executiva
-            </span>
+            
             <img 
               src={logomelo} 
               alt="Ítalo Mello Negócios Imobiliários" 
               className="h-12 sm:h-16 md:h-20 w-auto object-contain brightness-0 opacity-90 transition-all duration-500" 
             />
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] ml-1">
+              Direto Executivo
+            </span>
           </motion.div>
 
           {/* Headline */}
